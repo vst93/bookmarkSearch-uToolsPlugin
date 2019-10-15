@@ -1,0 +1,23 @@
+{
+	"pluginName": "书签搜索",
+	"description": "Chrome书签搜索",
+	"homepage": "https://github.com/vst93/myDictionary-uToolsPlugin",
+	"author": "vst",
+	"main": "index.html",
+	"logo": "logo.png",
+	"version": "0.1.0",
+	"preload":"preload.js",
+	"features": [
+	    {
+			"code": "search",
+			"explain": "Chrome书签搜索",
+	        "cmds":[
+				"书签","bookmark","bookmarkSearch","bk","书签搜索",
+				{
+					"type": "over",
+					"label": "Chrome书签搜索"
+				}
+			]
+		}
+	]
+}
