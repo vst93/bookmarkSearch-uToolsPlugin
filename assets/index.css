@@ -1,25 +1,10 @@
 body{
     margin: 0;
     padding: 0;
-    background: #f5f5f5;
-}
-#voice{
-    margin: 0;
-    padding: 0;
-    height: 0;
-    width: 0;
+    background: #ffffff;
 }
 
-.play-phonetic-btn{
-    height: 15px;
-    width: 24px;
-    background-image: url(play.png);
-    background-repeat: no-repeat;
-    border: none;
-    background-size: 24px;
-    background-position: center;
-    cursor: pointer;
-}
+
 .content h1{
     background: #fff;
     padding: 20px;
@@ -35,18 +20,69 @@ body{
 }
 .content ul{
     list-style: none;
-    background: #f5f5f5;
+    /* background: #f5f5f5; */
     margin: 0;
-    padding: 12px 20px;
-    line-height: 1.6em;
+    padding: 0;
 }
 
-.content ul div{
-    display:inline;
-}
 
 .phonetic{
     background: #fff;
     padding: 8px 20px;
     margin: 0;
+}
+
+.content ul li{
+    width: 100%;
+    list-style: none;
+    height: 100%;
+    display: inline-flex;
+    cursor: pointer;
+}
+.content ul li:hover{
+    background: #e2e2e2;
+}
+ 
+
+
+.content .li-favicon{
+    width: 56px;
+    line-height: 100%;
+}
+
+.li-favicon img{
+    width: 28px;
+    margin: 14px;
+}
+
+.li-content{
+    height: 56px;
+    width: 90%;
+    padding: 3px 0px;
+}
+
+.li-name{
+    height: 20px;
+    color: #000;
+    font-size: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 500;
+    margin-top: 5px;
+}
+.li-url{
+    height: 25px;
+    color: #949494;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.selected{
+    background: #efefef;
+    background-image: url(right.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 45px 45px;
 }
