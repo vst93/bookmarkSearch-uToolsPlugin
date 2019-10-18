@@ -1,22 +1,29 @@
 {
 	"pluginName": "书签搜索",
 	"description": "书签搜索",
-	"homepage": "https://github.com/vst93/myDictionary-uToolsPlugin",
+	"homepage": "https://github.com/vst93/bookmarkSearch-uToolsPlugin",
 	"author": "vst",
 	"main": "index.html",
 	"logo": "logo.png",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"preload":"preload.js",
 	"features": [
 	    {
 			"code": "search",
 			"explain": "书签搜索",
 	        "cmds":[
-				"书签","bookmark","bookmarkSearch","bm","书签搜索",
+				"BookMark","书签搜索",
 				{
 					"type": "over",
 					"label": "书签搜索"
 				}
+			]
+		},
+		{
+			"code": "setBookmarksPath",
+			"explain": "设置书签路径",
+	        "cmds":[
+				"SetBookmarksPath","设置书签路径"
 			]
 		}
 	]

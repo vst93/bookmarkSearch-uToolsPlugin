@@ -1,11 +1,19 @@
 var text = ''
 var t
-var json_data
+var json_data = ""
 var li_key = 0
 var input_text = ""
+var dbName = 'vBookmarkPath';
+var conf_path;
+var myapp_path;
+var setting_page = false;
+
 utools.onPluginEnter(({ code, type, payload }) => {
-    // utools.setExpendHeight(0);
+    myapp_path = utools.getPath('userData') + '/bookmarksearch';
+    conf_path = myapp_path + '/set_bookmarks_path.conf';
     if (code == 'search') {
+        setting_page = false;
+        $(".setting").hide();
         search_bookmark(text);
         utools.setSubInput(({ text }) => {
             this.text = text
@@ -13,20 +21,23 @@ utools.onPluginEnter(({ code, type, payload }) => {
         }, "请输入需要查询的关键词");
         if (type == 'over') {
             utools.setSubInputValue(payload);
-            search_bookmark(payload);
         }
-
+    } else if (code == 'setBookmarksPath') {
+        setting_page = true;
+        $(".content").html("");
+        window.getConfData(function (data) {
+            if (data) {
+                $(".setting textarea").val(data);
+            }
+            $(".setting").show();
+        });
     }
 });
-
-$(document).keydown(function (event) {
-    event.preventDefault();
-});
-
 
 $(document).keydown(e => {
     switch (e.keyCode) {
         case 40:
+            event.preventDefault();
             max_key = $(".content ul li").length - 1;
             li_key = li_key + 1;
             if (li_key > max_key) {
@@ -38,6 +49,7 @@ $(document).keydown(e => {
             selectLi();
             break;
         case 38:
+            event.preventDefault();
             max_key = $(".content ul li").length - 1;
             li_key = li_key - 1;
             if (li_key < 0) {
@@ -56,12 +68,18 @@ $(document).keydown(e => {
             url = $('.selected').children('.li-content').children(".li-url").text();
             window.openUrl(url)
             break;
+        case 191:
+            if(!setting_page){
+                utools.subInputFocus();
+            }
+            break;
     }
 });
 
 function selectLi() {
     $(".content ul li").removeClass("selected")
     $(".content ul li:eq(" + li_key + ")").addClass("selected")
+
     selected_bottom_window = $(document).scrollTop() + $(window).height() - $(".selected").offset().top;
     if (selected_bottom_window < $(".selected").height()) {
         $(document).scrollTop($(".selected").offset().top - $(window).height() + $(".selected").height())
@@ -133,6 +151,28 @@ function search_bookmark(word) {
     });
 
 
-
 }
 
+function onClickSetBookmarksPath() {
+    var path = $('.setting textarea').val();
+    if (path == null) {
+        path = '';
+    }
+    if (path == '') {
+        window.delConfData(function () {
+            utools.showNotification("已恢复为Chrome默认书签路径", clickFeatureCode = null, silent = false)
+        });
+        return;
+    }
+
+    window.cheackBookmarkPath(path, function () {
+        window.saveConfData(path, function () {
+            utools.showNotification("保存成功", clickFeatureCode = null, silent = false)
+            return;
+        });
+    });
+
+    utools.showNotification("保存失败。。。", clickFeatureCode = null, silent = false)
+
+
+}
