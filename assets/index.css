@@ -89,7 +89,7 @@ body{
 
 .setting{
     display: none;
-    background: #E6EAED;
+    background: #ffffff;
     height: 100%;
     width: 100%;
     position: fixed;
@@ -104,11 +104,20 @@ body{
     text-align: left;
 }
 .setting button{
-    color: #fff;
-    width: 100%;
-    background: #5F6367;
+    color: #333;
+    width: 20%;
+    float: right;
+    background: #fff200;
     font-size: 20px;
     height: 40px;
+    line-height: 40px;
+    border-radius: 20px;
+    margin-top: 15px;
+    outline: none;
+    border: none;
+}
+.setting button:hover{
+    opacity: .8;
 }
 .setting textarea{
     display: block;
