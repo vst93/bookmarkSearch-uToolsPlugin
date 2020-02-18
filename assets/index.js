@@ -22,16 +22,17 @@ utools.onPluginEnter(({ code, type, payload }) => {
         if (type == 'over') {
             utools.setSubInputValue(payload);
         }
-    } else if (code == 'setBookmarksPath') {
-        setting_page = true;
-        $(".content").html("");
-        window.getConfData(function (data) {
-            if (data) {
-                $(".setting textarea").val(data);
-            }
-            $(".setting").show();
-        });
-    }
+    } 
+    // else if (code == 'setBookmarksPath') {
+    //     setting_page = true;
+    //     $(".content ul").html("");
+    //     window.getConfData(function (data) {
+    //         if (data) {
+    //             $(".setting textarea").val(data);
+    //         }
+    //         $(".setting").show();
+    //     });
+    // }
 });
 
 $(document).keydown(e => {
@@ -44,7 +45,7 @@ $(document).keydown(e => {
                 li_key = 0;
                 $(document).scrollTop(0);
             } else {
-                $(document).scrollTop($(document).scrollTop() + 56)
+                $(document).scrollTop($(document).scrollTop() + 0)
             }
             selectLi();
             break;
@@ -56,7 +57,7 @@ $(document).keydown(e => {
                 li_key = max_key;
                 $(document).scrollTop($(document).height());
             } else {
-                $(document).scrollTop($(document).scrollTop() - 56)
+                $(document).scrollTop($(document).scrollTop() - 0)
             }
             selectLi();
             break;
@@ -65,6 +66,10 @@ $(document).keydown(e => {
             window.openUrl(url)
             break;
         case 13:
+            url = $('.selected').children('.li-content').children(".li-url").text();
+            window.openUrl(url)
+            break;
+        case 32:
             url = $('.selected').children('.li-content').children(".li-url").text();
             window.openUrl(url)
             break;
@@ -139,7 +144,7 @@ function search_bookmark(word) {
 
         utools.setExpendHeight(544);
 
-        $(".content").html("<ul>" + li_html + "</ul>");
+        $(".content ul").html(li_html);
         //绑定点击事件
         $('.content ul li').unbind('click');
         $('.content ul li').on("click", function () {
@@ -221,5 +226,36 @@ var SimplePinYin = {
         }
 
         return isFind;
+    }
+}
+
+
+function showChangeSourcePage() {
+    $(".click-changeSourcePage").hide();
+    $(".click-content").show();
+    setting_page = true;
+    $(".content ul").html("");
+    window.getConfData(function (data) {
+        if (data) {
+            $(".setting textarea").val(data);
+        }
+        $(".setting").show();
+    });
+    $(".setting").show();
+}
+
+
+function backContent() {
+    $(".click-content").hide();
+    $(".click-changeSourcePage").show();
+    setting_page = false;
+    $(".setting").hide();
+    search_bookmark(text);
+    utools.setSubInput(({ text }) => {
+        this.text = text
+        search_bookmark(text);
+    }, "请输入需要查询的关键词");
+    if (type == 'over') {
+        utools.setSubInputValue(payload);
     }
 }

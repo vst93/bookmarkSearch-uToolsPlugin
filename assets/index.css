@@ -89,7 +89,7 @@ body{
 
 .setting{
     display: none;
-    background: #ffffff;
+    background: #E6EAED;
     height: 100%;
     width: 100%;
     position: fixed;
@@ -104,21 +104,20 @@ body{
     text-align: left;
 }
 .setting button{
-    color: #333;
-    width: 20%;
-    float: right;
-    background: #fff200;
+    color: #fff;
+    background: #5F6367;
     font-size: 20px;
-    height: 40px;
-    line-height: 40px;
-    border-radius: 20px;
-    margin-top: 15px;
-    outline: none;
-    border: none;
+    height: 48px;
+    width: 40%;
+    margin: 8px 8px 0 0;
+    float: right;
+    border-radius: 8px;
+    cursor: pointer !important;
 }
 .setting button:hover{
-    opacity: .8;
+    background: #a0a0a0;
 }
+
 .setting textarea{
     display: block;
     width: 98%;
@@ -129,4 +128,37 @@ body{
     font-size: 14px;
     border-left: 0;
     border-right: 0;
+}
+.click-changeSourcePage{
+    background-image: url(set-button.png);
+    width: 40px;
+    height: 40px;
+    z-index: 99;
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: fixed;
+    right: 0px; 
+    bottom: 0px;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.click-changeSourcePage:hover,.click-content:hover{
+    opacity: 1;
+    background-size: 40px 40px;
+}
+.click-content{
+    background-image: url(set-back.png);
+    width: 40px;
+    height: 40px;
+    z-index: 99;
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: fixed;
+    right: 0px; 
+    bottom: 0px;
+    opacity: 0.5;
+    cursor: pointer;
 }
