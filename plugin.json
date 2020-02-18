@@ -5,7 +5,7 @@
 	"author": "vst",
 	"main": "index.html",
 	"logo": "logo.png",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"preload":"preload.js",
 	"features": [
 	    {
@@ -17,13 +17,6 @@
 					"type": "over",
 					"label": "书签搜索"
 				}
-			]
-		},
-		{
-			"code": "setBookmarksPath",
-			"explain": "设置书签路径",
-	        "cmds":[
-				"SetBookmarksPath","设置书签路径"
 			]
 		}
 	]

@@ -2,7 +2,7 @@ const fs = require("fs");
 const shell = require('electron').shell;
 var os = require("os")
 
-getConfData = (callback)=>{
+getConfData = (callback) => {
     fs.readFile(conf_path, "utf-8", function (error, data) {
         if (error) {
             callback('');
@@ -12,31 +12,31 @@ getConfData = (callback)=>{
     });
 }
 
-delConfData = (callback)=>{
+delConfData = (callback) => {
     fs.unlink(conf_path, function (error) {
         callback();
     })
 }
 
-saveConfData = (data,callback)=>{
-    fs.mkdir(myapp_path,function(error){
-        if(error){
+saveConfData = (data, callback) => {
+    fs.mkdir(myapp_path, function (error) {
+        if (error) {
             console.log(error);
         }
     })
     fs.writeFile(conf_path, data, 'utf8', function (error) {
-        if (error) { 
+        if (error) {
             console.log(error)
-        }else{
+        } else {
             callback();
         }
     })
 }
 
 readBookmark = (callback) => {
-    getConfData(function(data){
+    getConfData(function (data) {
         var path = '';
-        if (data!='') {
+        if (data != '') {
             path = data;
         } else if (os.type() === 'Windows_NT') {
             path = utools.getPath('appData') + '/../Local/Google/Chrome/User Data/Default/Bookmarks';
@@ -55,7 +55,7 @@ readBookmark = (callback) => {
             }
         });
     });
-    
+
 }
 
 cheackBookmarkPath = (in_path, callback) => {
