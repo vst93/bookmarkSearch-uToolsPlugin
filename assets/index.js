@@ -231,8 +231,8 @@ var SimplePinYin = {
 
 
 function showChangeSourcePage() {
-    $(".click-changeSourcePage").hide();
-    $(".click-content").show();
+    // $(".click-changeSourcePage").hide();
+    // $(".click-content").show();
     setting_page = true;
     $(".content ul").html("");
     window.getConfData(function (data) {
@@ -246,8 +246,8 @@ function showChangeSourcePage() {
 
 
 function backContent() {
-    $(".click-content").hide();
-    $(".click-changeSourcePage").show();
+    // $(".click-content").hide();
+    // $(".click-changeSourcePage").show();
     setting_page = false;
     $(".setting").hide();
     search_bookmark(text);
