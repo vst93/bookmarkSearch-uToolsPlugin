@@ -8,9 +8,10 @@
 
 ![3AajFP.png](https://s2.ax1x.com/2020/02/19/3AajFP.png)
 
-![3AdSSS.png](https://s2.ax1x.com/2020/02/19/3AdSSS.png)
+![image.png](https://i.loli.net/2020/03/18/ISuZOlxmCRcDfna.png)
 
-###### 其他Chromium内核浏览器书签路径（路径包含文件名）请自行研究。。。可以参考下图  ```chrome://version/```
+
+###### 其他Chromium内核浏览器书签路径（路径包含文件名，通常为Bookmarks）请自行研究。。。可以参考下图  `chrome://version/` ，如题情况书签文件路径为 `/home/v/.config/google-chrome/Default/Bookmarks` 
 
 ![KA74cd.jpg](https://s2.ax1x.com/2019/10/17/KA74cd.jpg)
 
@@ -29,4 +30,7 @@
 `v0.1.2` 
 * 添加设置路径按钮，去除命令进入设置页；
 * 去除上下选择时的偏移；
-* 合并加入 [T-winkle](https://github.com/) 提交的  [“汉字拼音及拼* 音首字母模糊搜索”](https://github.com/vst93/bookmarkSearch-uToolsPlugin/pull/2)
+* 合并加入 [T-winkle](https://github.com/T-winkle) 提交的  [“汉字拼音及拼* 音首字母模糊搜索”](https://github.com/vst93/bookmarkSearch-uToolsPlugin/pull/2)
+
+`v0.1.3` 
+* 修复某些情况下设置不显示的bug         
