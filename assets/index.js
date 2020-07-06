@@ -7,6 +7,7 @@ var dbName = 'vBookmarkPath';
 var conf_path;
 var myapp_path;
 var setting_page = false;
+var altKeyString = 'alt+';
 
 utools.onPluginEnter(({ code, type, payload }) => {
     myapp_path = utools.getPath('userData') + '/bookmarksearch';
@@ -27,7 +28,7 @@ utools.onPluginEnter(({ code, type, payload }) => {
 });
 
 $(document).keydown(e => {
-    console.log('bc:'+e.keyCode)
+    console.log('bc:' + e.keyCode)
     switch (e.keyCode) {
         case 40:
             event.preventDefault();
@@ -70,19 +71,18 @@ $(document).keydown(e => {
                 utools.subInputFocus();
             }
             break;
-        case 91:
-            // event.preventDefault();
-            console.log('cc')
-            choiceList();
-            $(document).keyup(ee => {
-                console.log('double_click:' + ee.keyCode)
-                if (ee.keyCode == 91) {
-                    $(document).keyup(ee => { })
-                }
-            })
-            break;
+    }
+    if(e.keyCode>=49 && e.keyCode<=57){
+        firstIndex = Math.floor($(document).scrollTop() / 62)
+        theIndex = firstIndex + e.keyCode-49
+        url =  $(".content ul li:eq(" + theIndex + ") .li-content .li-url").text();
+        window.openUrl(url)
     }
 });
+
+$(window).scroll(function() {
+    choiceList();
+})
 
 
 function selectLi() {
@@ -146,7 +146,7 @@ function search_bookmark(word) {
                 "</li>";
         }
 
-        utools.setExpendHeight(558);
+        utools.setExpendHeight(496);
 
         $(".content ul").html(li_html);
         //绑定点击事件
@@ -158,6 +158,7 @@ function search_bookmark(word) {
 
         li_key = 0;
         selectLi();
+        choiceList();
     });
 
 
@@ -265,14 +266,23 @@ function backContent() {
 }
 
 function choiceList() {
-    firstIndex = Math.ceil($(document).scrollTop() / 62) - 1
-    i = 0;
+    if (utools.isMacOs()) {
+        altKeyString = 'cmd + '
+    }
+    firstIndex = Math.floor($(document).scrollTop() / 62)
+    var i = 0;
     liArr = $('.content ul').children()
+    $(".content ul li span").html('');
     for (theIndex in liArr) {
-        i++;
-        if (theIndex < firstIndex || i > 9) {
+        if(i >= 9){
             break;
         }
-        $(".content ul li:eq(" + theIndex + ")").append('<span class="choice-span">'+i+'</span>');
+        if (theIndex < firstIndex) {
+            continue; 
+        }else{
+            theNo = i+1
+            $(".content ul li:eq(" + theIndex + ")").append('<span class="choice-span">'+ altKeyString + theNo + '</span>');
+            i++;
+        }
     }
 }
