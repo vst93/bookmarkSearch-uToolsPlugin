@@ -170,3 +170,19 @@ body{
     text-align: center;
     cursor: pointer !important;
 }
+
+.bg-test{
+    background-color: thistle;
+}
+
+.choice-span{
+    position: absolute;
+    width: 45px;
+    text-align: center;
+    line-height: 45px;
+    background: #0000009c;
+    border-radius: 28px;
+    margin: 9px 6px;
+    color: #fff;
+    font-size: 25px;
+}
