@@ -51,13 +51,13 @@ body{
 }
 
 .li-favicon img{
-    width: 28px;
-    margin: 14px;
+    width: 32px;
+    margin: 10px;
 }
 
 .li-content{
     height: 56px;
-    width: 90%;
+    width: 85%;
     padding: 3px 0px;
 }
 
@@ -81,10 +81,13 @@ body{
 }
 .selected{
     background: #efefef;
-    background-image: url(right.png);
+    background-image: url(go.png);
     background-repeat: no-repeat;
     background-position: right;
-    background-size: 45px 45px;
+    background-size: 62px;
+}
+.selected span{
+    display: none;
 }
 
 .setting{
@@ -179,10 +182,11 @@ body{
     position: absolute;
     width: 45px;
     text-align: center;
-    line-height: 45px;
-    background: #0000009c;
-    border-radius: 28px;
-    margin: 9px 6px;
-    color: #fff;
-    font-size: 25px;
+    line-height: 62px;
+    border-radius: 6px;
+    margin: 0;
+    color: #000;
+    right: 10px;
+    font-size: 14px;
+    font-weight: 400;
 }
