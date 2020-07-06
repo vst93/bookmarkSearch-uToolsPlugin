@@ -22,20 +22,12 @@ utools.onPluginEnter(({ code, type, payload }) => {
         if (type == 'over') {
             utools.setSubInputValue(payload);
         }
-    } 
-    // else if (code == 'setBookmarksPath') {
-    //     setting_page = true;
-    //     $(".content ul").html("");
-    //     window.getConfData(function (data) {
-    //         if (data) {
-    //             $(".setting textarea").val(data);
-    //         }
-    //         $(".setting").show();
-    //     });
-    // }
+    }
+
 });
 
 $(document).keydown(e => {
+    console.log('bc:'+e.keyCode)
     switch (e.keyCode) {
         case 40:
             event.preventDefault();
@@ -78,8 +70,20 @@ $(document).keydown(e => {
                 utools.subInputFocus();
             }
             break;
+        case 91:
+            // event.preventDefault();
+            console.log('cc')
+            choiceList();
+            $(document).keyup(ee => {
+                console.log('double_click:' + ee.keyCode)
+                if (ee.keyCode == 91) {
+                    $(document).keyup(ee => { })
+                }
+            })
+            break;
     }
 });
+
 
 function selectLi() {
     $(".content ul li").removeClass("selected")
@@ -110,7 +114,7 @@ function search_bookmark(word) {
         function arrToList(folder_arr, parent_id) {
             for (const iterator of folder_arr) {
                 if (iterator.type === 'url') {
-                    if (word.length > 0 && iterator.url.indexOf(word) === -1 && 
+                    if (word.length > 0 && iterator.url.indexOf(word) === -1 &&
                         !SimplePinYin.isMatch(word, iterator.name)) {
                         continue
                     }
@@ -142,7 +146,7 @@ function search_bookmark(word) {
                 "</li>";
         }
 
-        utools.setExpendHeight(544);
+        utools.setExpendHeight(558);
 
         $(".content ul").html(li_html);
         //绑定点击事件
@@ -257,5 +261,18 @@ function backContent() {
     }, "请输入需要查询的关键词");
     if (type == 'over') {
         utools.setSubInputValue(payload);
+    }
+}
+
+function choiceList() {
+    firstIndex = Math.ceil($(document).scrollTop() / 62) - 1
+    i = 0;
+    liArr = $('.content ul').children()
+    for (theIndex in liArr) {
+        i++;
+        if (theIndex < firstIndex || i > 9) {
+            break;
+        }
+        $(".content ul li:eq(" + theIndex + ")").append('<span class="choice-span">'+i+'</span>');
     }
 }
