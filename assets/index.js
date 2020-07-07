@@ -267,7 +267,7 @@ function backContent() {
 
 function choiceList() {
     if (utools.isMacOs()) {
-        altKeyString = 'cmd + '
+        altKeyString = 'cmd+'
     }
     firstIndex = Math.floor($(document).scrollTop() / 62)
     var i = 0;
