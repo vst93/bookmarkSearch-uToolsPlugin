@@ -8,8 +8,14 @@ var conf_path;
 var myapp_path;
 var setting_page = false;
 var altKeyString = 'alt+';
+const expendHeight = 496
 
 utools.onPluginEnter(({ code, type, payload }) => {
+    if (utools.isDarkColors()) {
+        $('.cover').show()
+    } else {
+        $('.cover').hide()
+    }
     myapp_path = utools.getPath('userData') + '/bookmarksearch';
     conf_path = myapp_path + '/set_bookmarks_path.conf';
     if (code == 'search') {
@@ -23,12 +29,13 @@ utools.onPluginEnter(({ code, type, payload }) => {
         if (type == 'over') {
             utools.setSubInputValue(payload);
         }
+    } else if (code == 'setPath') {
+        filePath = window.getFilePath()
+        showChangeSourcePage(filePath)
     }
-
 });
 
 $(document).keydown(e => {
-    console.log('bc:' + e.keyCode)
     switch (e.keyCode) {
         case 40:
             event.preventDefault();
@@ -72,16 +79,33 @@ $(document).keydown(e => {
             }
             break;
     }
-    if(e.keyCode>=49 && e.keyCode<=57){
+    if (e.keyCode >= 49 && e.keyCode <= 57) {
         firstIndex = Math.floor($(document).scrollTop() / 62)
-        theIndex = firstIndex + e.keyCode-49
-        url =  $(".content ul li:eq(" + theIndex + ") .li-content .li-url").text();
+        theIndex = firstIndex + e.keyCode - 49
+        url = $(".content ul li:eq(" + theIndex + ") .li-content .li-url").text();
         window.openUrl(url)
     }
 });
 
-$(window).scroll(function() {
+$(window).scroll(function () {
     choiceList();
+})
+
+
+
+$(function () {
+    const dropwrapper = document;
+    dropwrapper.addEventListener('drop', (e) => {
+        e.preventDefault()
+        const files = e.dataTransfer.files;
+        if (files) {
+            $(".setting textarea").val(files[0].path);
+            utools.showNotification('文件路径已填入，检查无误请点击保存')
+        }
+    })
+    dropwrapper.addEventListener('dragover', (e) => {
+        e.preventDefault();
+    })
 })
 
 
@@ -146,7 +170,7 @@ function search_bookmark(word) {
                 "</li>";
         }
 
-        utools.setExpendHeight(496);
+        utools.setExpendHeight(expendHeight);
 
         $(".content ul").html(li_html);
         //绑定点击事件
@@ -182,10 +206,7 @@ function onClickSetBookmarksPath() {
             return;
         });
     });
-
     utools.showNotification("保存失败。。。", clickFeatureCode = null, silent = false)
-
-
 }
 
 var SimplePinYin = {
@@ -235,17 +256,23 @@ var SimplePinYin = {
 }
 
 
-function showChangeSourcePage() {
+function showChangeSourcePage(filePath) {
     // $(".click-changeSourcePage").hide();
     // $(".click-content").show();
     setting_page = true;
     $(".content ul").html("");
-    window.getConfData(function (data) {
-        if (data) {
-            $(".setting textarea").val(data);
-        }
+    if (filePath.length > 2) {
+        $(".setting textarea").val(filePath);
         $(".setting").show();
-    });
+        utools.showNotification('文件路径已填入，检查无误请点击保存')
+    } else {
+        window.getConfData(function (data) {
+            if (data) {
+                $(".setting textarea").val(data);
+            }
+            $(".setting").show();
+        });
+    }
     $(".setting").show();
 }
 
@@ -274,15 +301,29 @@ function choiceList() {
     liArr = $('.content ul').children()
     $(".content ul li span").html('');
     for (theIndex in liArr) {
-        if(i >= 9){
+        if (i >= 9) {
             break;
         }
         if (theIndex < firstIndex) {
-            continue; 
-        }else{
-            theNo = i+1
-            $(".content ul li:eq(" + theIndex + ")").append('<span class="choice-span">'+ altKeyString + theNo + '</span>');
+            continue;
+        } else {
+            theNo = i + 1
+            $(".content ul li:eq(" + theIndex + ")").append('<span class="choice-span">' + altKeyString + theNo + '</span>');
             i++;
         }
     }
+}
+
+
+function selectFile() {
+    file = utools.showOpenDialog({
+        title: '选择书签文件',
+        filters: [{ 'name': 'bookmarkFile', extensions: ['*'] }],
+        properties: ['openFile']
+    })
+    if (file != undefined) {
+        filePath = file[0]
+        $(".setting textarea").val(filePath);
+    }
+    utools.setExpendHeight(expendHeight);
 }
