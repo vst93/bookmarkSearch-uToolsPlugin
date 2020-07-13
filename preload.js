@@ -1,6 +1,7 @@
 const fs = require("fs");
 const shell = require('electron').shell;
 var os = require("os")
+const { clipboard } = require('electron')
 
 getConfData = (callback) => {
     fs.readFile(conf_path, "utf-8", function (error, data) {
@@ -17,6 +18,7 @@ delConfData = (callback) => {
         callback();
     })
 }
+
 
 saveConfData = (data, callback) => {
     fs.mkdir(myapp_path, function (error) {
@@ -47,7 +49,7 @@ readBookmark = (callback) => {
         }
         fs.readFile(path, "utf-8", function (error, data) {
             if (error) {
-                utools.showNotification('未找到Chrome默认书签文件，如使用其他Chromium内核浏览器，请键入"setBookmarksPath"修改书签文件路径', clickFeatureCode = null, silent = false)
+                utools.showNotification('未找到Chrome默认书签文件，如使用其他Chromium内核浏览器，请修改书签文件路径', clickFeatureCode = null, silent = false)
                 return false;
             } else {
                 json_data = JSON.parse(data)
@@ -76,3 +78,9 @@ openUrl = (url) => {
     shell.openExternal(url);
 }
 
+getFilePath = ()=>{
+    var reg = new RegExp("^file\:\/\/", "mi");
+    filePath = clipboard.read('public.file-url')
+    filePath = filePath.replace(reg,'');
+    return decodeURI(filePath)
+}

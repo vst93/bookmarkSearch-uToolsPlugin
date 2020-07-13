@@ -6,14 +6,20 @@
 
 **搜索书签后 `↑` `↓` 选择，`→` 、 `回车` 、`空格`、 `鼠标点击`、 `数字快捷键` 调用默认浏览器打开书签链接**
 
-![3AajFP.png](https://s2.ax1x.com/2020/02/19/3AajFP.png)
+![UJRxHS.png](https://s1.ax1x.com/2020/07/13/UJRxHS.png)
 
-![image.png](https://i.loli.net/2020/03/18/ISuZOlxmCRcDfna.png)
+![UJW9hj.png](https://s1.ax1x.com/2020/07/13/UJW9hj.png)
 
+##书签文件选择
+- 如下方法找到书签文件路径，设置页面中填入保存
+- 文件管理器中找到文件，呼出uTools，粘贴进入设置
+- 设置页面中拖入书签文件
 
-###### 其他Chromium内核浏览器书签路径（路径包含文件名，通常为Bookmarks）请自行研究。。。可以参考下图  `chrome://version/` ，如题情况书签文件路径为 `/home/v/.config/google-chrome/Default/Bookmarks` 
+###### 其他Chromium内核浏览器书签路径（路径包含文件名，通常为Bookmarks）可以参考下图  `chrome://version/` ，如题情况书签文件路径为 `/home/v/.config/google-chrome/Default/Bookmarks` 
 
 ![KA74cd.jpg](https://s2.ax1x.com/2019/10/17/KA74cd.jpg)
+
+
 
 
 项目地址：https://github.com/vst93/bookmarkSearch-uToolsPlugin
@@ -37,3 +43,7 @@
 
 `v0.1.4` 
 * 添加快捷键选择         
+
+`v0.1.5` 
+* 书签文件选择优化     
+* 添加夜间模式     

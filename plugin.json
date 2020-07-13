@@ -5,7 +5,7 @@
 	"author": "vst",
 	"main": "index.html",
 	"logo": "logo.png",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"preload":"preload.js",
 	"features": [
 	    {
@@ -16,6 +16,18 @@
 				{
 					"type": "over",
 					"label": "书签搜索"
+				}
+			]
+		}
+		,{
+			"code": "setPath",
+			"explain": "设置书签路径",
+			"cmds": [
+				{
+					"type": "files",
+					"label": "设置书签路径",
+					"fileType": "file",
+					"maxLength": 1
 				}
 			]
 		}
