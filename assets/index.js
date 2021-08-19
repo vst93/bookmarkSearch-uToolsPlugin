@@ -127,6 +127,8 @@ function selectLi() {
 
 function search_bookmark(word) {
     word = word.toLowerCase();
+    wordArr = word.split(/ {1,}/);
+
     window.readBookmark(function (json_data) {
         if (json_data === false) {
             utools.showNotification('搜索失败', clickFeatureCode = null, silent = false)
@@ -136,13 +138,30 @@ function search_bookmark(word) {
         var all_bk_arr = Array();
 
         function arrToList(folder_arr, parent_id) {
+            loop1:
             for (const iterator of folder_arr) {
                 if (iterator.type === 'url') {
-                    if (word.length > 0 && iterator.url.indexOf(word) === -1 &&
-                        !SimplePinYin.isMatch(word, iterator.name)) {
-                        continue
+
+                    for (const wordArrVal of wordArr) {
+                        if (wordArrVal.length == 0) {
+                            continue
+                        } else if (
+                            iterator.url.toLowerCase().indexOf(wordArrVal) === -1 &&
+                            iterator.name.toLowerCase().indexOf(wordArrVal) === -1 &&
+                            !SimplePinYin.isMatch(wordArrVal, iterator.name)
+                        ) {
+                            continue loop1
+                        }
                     }
-                    all_bk_arr.push({ "id": iterator.id, "name": iterator.name, "url": iterator.url, 'type': iterator.type, 'parent_id': parent_id })
+
+                    all_bk_arr.push({
+                        "id": iterator.id,
+                        "name": iterator.name,
+                        "url": iterator.url,
+                        'type': iterator.type,
+                        'parent_id': parent_id,
+                        'date_added': iterator.date_added
+                    })
                 } else if (iterator.type === 'folder') {
                     arrToList(iterator.children, iterator.id)
                 }
@@ -150,6 +169,10 @@ function search_bookmark(word) {
         }
 
         arrToList(all_bk, "0");
+        //排序
+        all_bk_arr.sort(function (a, b) {
+            return b.date_added - a.date_added
+        });
 
         var li_html = "";
 

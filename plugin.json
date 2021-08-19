@@ -5,21 +5,22 @@
 	"author": "vst",
 	"main": "index.html",
 	"logo": "logo.png",
-	"version": "0.1.5",
-	"preload":"preload.js",
+	"version": "0.1.6",
+	"preload": "preload.js",
 	"features": [
-	    {
+		{
 			"code": "search",
 			"explain": "书签搜索",
-	        "cmds":[
-				"BookMark","书签搜索",
+			"cmds": [
+				"BookMark",
+				"书签搜索",
 				{
 					"type": "over",
 					"label": "书签搜索"
 				}
 			]
-		}
-		,{
+		},
+		{
 			"code": "setPath",
 			"explain": "设置书签路径",
 			"cmds": [
