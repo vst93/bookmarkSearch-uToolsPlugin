@@ -29,6 +29,7 @@ saveConfData = (data, callback) => {
     fs.writeFile(conf_path, data, 'utf8', function (error) {
         if (error) {
             console.log(error)
+            utools.showNotification("保存失败。。。", clickFeatureCode = null, silent = false)
         } else {
             callback();
         }
@@ -71,12 +72,6 @@ cheackBookmarkPath = (in_path, callback) => {
     });
 }
 
-openUrl = (url) => {
-    if (url == '') {
-        return
-    }
-    shell.openExternal(url);
-}
 
 getFilePath = ()=>{
     var reg = new RegExp("^file\:\/\/", "mi");
@@ -84,3 +79,4 @@ getFilePath = ()=>{
     filePath = filePath.replace(reg,'');
     return decodeURI(filePath)
 }
+

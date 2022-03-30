@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf8" />
     <link rel="stylesheet" type="text/css" href="assets/index.css">
+    <link rel="stylesheet" type="text/css" href="assets/layui.css">
     <script src="assets/jquery-3.3.1.min.js"></script>
+    <script src="assets/layui.js"></script>
 </head>
 
 <body>
@@ -16,14 +18,64 @@
         </div>
     </div>
     <div class="setting">
-        <h1>自定义书签文件路径</h1>
-        <textarea id="id-textarea" placeholder="留空表示使用Chrome默认路径（如果不清楚，请查看插件说明）"></textarea>
-        <div class="click-content" onclick="backContent()">返回</div>
-        <button onclick="onClickSetBookmarksPath()">保 存</button>
-        <button onclick="selectFile()">...</button>
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>设 置</legend>
+        </fieldset>
+        <form class="layui-form" lay-filter="settingData">
+            <div class="layui-form-item">
+                <label class="layui-form-label">书签排序：</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="sortBy" value="desc" title="时间倒序" checked>
+                    <input type="radio" name="sortBy" value="asc" title="时间正序">
+                    <input type="radio" name="sortBy" value="default" title="自然(按读取顺序,性能消耗最小)">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">加载图标：</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" checked="" name="loadFavicon" lay-skin="switch" lay-text="是|否">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">自动退出：</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="sysnOutPlugin" lay-skin="switch" lay-text="是|否">
+                </div>
+            </div>
+
+            <div class="layui-form-item layui-form-text">
+                <!-- <h1>自定义书签文件路径</h1> -->
+                <label class="layui-form-label">书签路径：</label>
+                <div class="layui-input-block">
+                    <textarea id="id-textarea" placeholder="留空表示使用Chrome默认路径（如果不清楚，请查看插件说明）" class="layui-textarea"
+                        style="width: 90%;"></textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-text" style="padding-left: 15px;color: #838383;">（除"书签路径"之外的设置项将跟随uTools数据自动同步）</div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button onclick="selectFile()" class="layui-btn">选择文件...</button>
+                    <button onclick="onClickSetBookmarksPath()" class="layui-btn" lay-submit>保存修改</button>
+                    <button onclick="backContent()" class="layui-btn layui-btn-primary">返回</button>
+                </div>
+            </div>
+
+
+
+        </form>
     </div>
     </div>
     <script src="assets/index.js"></script>
+    <script>
+        layui.use('form', function () {
+            window.formHander = layui.form;
+        });
+    </script>
 </body>
 
 </html>
