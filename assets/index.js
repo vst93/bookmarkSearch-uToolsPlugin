@@ -9,6 +9,7 @@ var myapp_path;
 var setting_page = false;
 var altKeyString = 'alt+';
 const expendHeight = 496
+var formHander
 
 utools.onPluginEnter(({ code, type, payload }) => {
     if (utools.isDarkColors()) {
@@ -170,19 +171,36 @@ function search_bookmark(word) {
 
         arrToList(all_bk, "0");
         //排序
-        all_bk_arr.sort(function (a, b) {
-            return b.date_added - a.date_added
-        });
+        listSortBy = utools.dbStorage.getItem('sortBy')
+        if (listSortBy == 'asc') {
+            all_bk_arr.sort(function (a, b) {
+                return a.date_added - b.date_added
+            });
+        } else if (listSortBy == 'default') {
+
+        } else {
+            all_bk_arr.sort(function (a, b) {
+                return b.date_added - a.date_added
+            });
+        }
+
 
         var li_html = "";
+        var theLoadFavicon = utools.dbStorage.getItem('loadFavicon')
+        if (theLoadFavicon == null) {
+            theLoadFavicon = "on"
+        }
 
         for (const bk_iter of all_bk_arr) {
+
             favicon_src = '';
 
-            var host_reg = /^(https?:\/\/[\w\.]*)/gim;
-            while (host_reg_re = host_reg.exec(bk_iter.url)) {
-                favicon_src = host_reg_re[1] + '/favicon.ico';
-                break;
+            if (theLoadFavicon == 'on') {
+                var host_reg = /^(https?:\/\/[\w\.]*)/gim;
+                while (host_reg_re = host_reg.exec(bk_iter.url)) {
+                    favicon_src = host_reg_re[1] + '/favicon.ico';
+                    break;
+                }
             }
 
             li_html = li_html +
@@ -212,6 +230,25 @@ function search_bookmark(word) {
 }
 
 function onClickSetBookmarksPath() {
+    //保存配置
+    var settingData = formHander.val('settingData')
+    if (settingData.sortBy != undefined) {
+        utools.dbStorage.setItem('sortBy', settingData.sortBy)
+    } else {
+        utools.dbStorage.setItem('sortBy', "desc")
+    }
+    if (settingData.sysnOutPlugin != undefined) {
+        utools.dbStorage.setItem('sysnOutPlugin', settingData.sysnOutPlugin)
+    } else {
+        utools.dbStorage.setItem('sysnOutPlugin', '')
+    }
+    if (settingData.loadFavicon != undefined) {
+        utools.dbStorage.setItem('loadFavicon', settingData.loadFavicon)
+    } else {
+        utools.dbStorage.setItem('loadFavicon', '')
+    }
+
+
     var path = $('.setting textarea').val();
     if (path == null) {
         path = '';
@@ -229,7 +266,6 @@ function onClickSetBookmarksPath() {
             return;
         });
     });
-    utools.showNotification("保存失败。。。", clickFeatureCode = null, silent = false)
 }
 
 var SimplePinYin = {
@@ -286,16 +322,41 @@ function showChangeSourcePage(filePath) {
     $(".content ul").html("");
     if (filePath.length > 2) {
         $(".setting textarea").val(filePath);
-        $(".setting").show();
+        showChangeSourcePageData();
         utools.showNotification('文件路径已填入，检查无误请点击保存')
     } else {
         window.getConfData(function (data) {
             if (data) {
                 $(".setting textarea").val(data);
             }
-            $(".setting").show();
         });
     }
+
+    showChangeSourcePageData();
+}
+
+function showChangeSourcePageData() {
+    var theSortBy = utools.dbStorage.getItem('sortBy')
+    if (theSortBy == null) {
+        theSortBy = ""
+    }
+
+    var theLoadFavicon = utools.dbStorage.getItem('loadFavicon')
+    if (theLoadFavicon == null) {
+        theLoadFavicon = "on"
+    }
+
+    var theSysnOutPlugin = utools.dbStorage.getItem('sysnOutPlugin')
+    if (theSysnOutPlugin == null) {
+        theSysnOutPlugin = ""
+    }
+
+
+    formHander.val("settingData", {
+        "sortBy": theSortBy,
+        "loadFavicon": theLoadFavicon,
+        "sysnOutPlugin": theSysnOutPlugin,
+    })
     $(".setting").show();
 }
 
@@ -349,4 +410,16 @@ function selectFile() {
         $(".setting textarea").val(filePath);
     }
     utools.setExpendHeight(expendHeight);
+}
+
+
+
+function openUrl(url) {
+    if (url == '') {
+        return
+    }
+    utools.shellOpenExternal(url)
+    if (utools.dbStorage.getItem('sysnOutPlugin') == 'on') {
+        utools.outPlugin()
+    }
 }

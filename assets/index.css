@@ -92,7 +92,8 @@ body{
 
 .setting{
     display: none;
-    background: #E6EAED;
+    /* background: #eeeeee; */
+    background: #ffffff;
     height: 100%;
     width: 100%;
     position: fixed;
@@ -101,28 +102,29 @@ body{
 }
 
 .setting h1{
-    margin: 0 auto;
+    /* margin: 0 auto;
     width: 100%;
     padding: 10px 5px;
     text-align: left;
+    font-size: 25px; */
 }
 .setting button{
-    color: #fff;
-    background: #5F6367;
-    font-size: 20px;
+    /* color: #fff; */
+    /* background: #5F6367; */
+    /* font-size: 20px;
     height: 48px;
     width: 40%;
     margin: 8px 8px 0 0;
     float: right;
     border-radius: 8px;
-    cursor: pointer !important;
+    cursor: pointer !important; */
 }
 .setting button:hover{
-    background: #a0a0a0;
+    /* background: #a0a0a0; */
 }
 
 .setting textarea{
-    display: block;
+    /* display: block;
     width: 98%;
     padding: 1%;
     margin: 0 auto;
@@ -130,8 +132,9 @@ body{
     height: 200px;
     font-size: 14px;
     border-left: 0;
-    border-right: 0;
+    border-right: 0; */
 }
+
 .click-changeSourcePage{
     background-image: url(set-button.png);
     width: 40px;
@@ -199,3 +202,11 @@ body{
     z-index: 99999;
     display: none;
 }
+
+.layui-icon {
+    font-family: layui-icon !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
