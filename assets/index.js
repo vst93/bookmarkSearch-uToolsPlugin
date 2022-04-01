@@ -345,8 +345,6 @@ var SimplePinYin = {
 
 
 function showChangeSourcePage(filePath) {
-    // $(".click-changeSourcePage").hide();
-    // $(".click-content").show();
     setting_page = true;
     $(".content ul").html("");
     if (filePath.length > 2) {
@@ -397,8 +395,6 @@ function showChangeSourcePageData() {
 
 
 function backContent() {
-    // $(".click-content").hide();
-    // $(".click-changeSourcePage").show();
     setting_page = false;
     $(".setting").hide();
     search_bookmark(text);

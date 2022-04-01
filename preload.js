@@ -1,5 +1,4 @@
 const fs = require("fs");
-const shell = require('electron').shell;
 var os = require("os")
 const { clipboard } = require('electron')
 
