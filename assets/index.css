@@ -210,3 +210,10 @@ body{
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+.input-tip-text{
+    display: inline-block;
+    position: relative;
+    top: 4px;
+    color: #838383;
+}
