@@ -248,6 +248,35 @@ function onClickSetBookmarksPath() {
         utools.dbStorage.setItem('loadFavicon', '')
     }
 
+    if (settingData.useFeature != undefined) {
+        utools.dbStorage.setItem('useFeature', settingData.useFeature)
+    } else {
+        utools.dbStorage.setItem('useFeature', '')
+    }
+    if (settingData.useFeature == 'on') {
+        utools.setFeature({
+            "code": "search",
+            "explain": "书签搜索",
+            "cmds": [
+                "BookMark",
+                "书签搜索",
+                {
+                    "type": "over",
+                    "label": "书签搜索"
+                }
+            ]
+        })
+    } else {
+        utools.setFeature({
+            "code": "search",
+            "explain": "书签搜索",
+            "cmds": [
+                "BookMark",
+                "书签搜索"
+            ]
+        })
+    }
+
 
     var path = $('.setting textarea').val();
     if (path == null) {
@@ -351,11 +380,17 @@ function showChangeSourcePageData() {
         theSysnOutPlugin = ""
     }
 
+    var theUseFeature = utools.dbStorage.getItem('useFeature')
+    if (theUseFeature == null) {
+        theUseFeature = ""
+    }
+
 
     formHander.val("settingData", {
         "sortBy": theSortBy,
         "loadFavicon": theLoadFavicon,
         "sysnOutPlugin": theSysnOutPlugin,
+        "useFeature": theUseFeature,
     })
     $(".setting").show();
 }
