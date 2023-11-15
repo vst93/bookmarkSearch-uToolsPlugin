@@ -135,6 +135,13 @@ function search_bookmark(word) {
             utools.showNotification('搜索失败', clickFeatureCode = null, silent = false)
             return;
         }
+
+          //匹配字段
+        listSearchWordField = utools.dbStorage.getItem('searchWordField')
+        if(!listSearchWordField){
+            listSearchWordField = 'all'
+        }
+
         var all_bk = json_data.roots.bookmark_bar.children.concat(json_data.roots.other.children)
         var all_bk_arr = Array();
 
@@ -146,13 +153,19 @@ function search_bookmark(word) {
                     for (const wordArrVal of wordArr) {
                         if (wordArrVal.length == 0) {
                             continue
-                        } else if (
-                            iterator.url.toLowerCase().indexOf(wordArrVal) === -1 &&
-                            iterator.name.toLowerCase().indexOf(wordArrVal) === -1 &&
-                            !SimplePinYin.isMatch(wordArrVal, iterator.name)
-                        ) {
+                        } else if (listSearchWordField == 'all' && 
+                        iterator.url.toLowerCase().indexOf(wordArrVal) === -1 &&
+                        iterator.name.toLowerCase().indexOf(wordArrVal) === -1 &&
+                        !SimplePinYin.isMatch(wordArrVal, iterator.name) ){
                             continue loop1
-                        }
+                        } else if (listSearchWordField == 'title' &&
+                        iterator.name.toLowerCase().indexOf(wordArrVal) === -1 &&
+                        !SimplePinYin.isMatch(wordArrVal, iterator.name) ){
+                            continue loop1
+                        } else if (listSearchWordField == 'url' && 
+                        iterator.url.toLowerCase().indexOf(wordArrVal) === -1){
+                            continue loop1
+                        } 
                     }
 
                     all_bk_arr.push({
@@ -236,6 +249,11 @@ function onClickSetBookmarksPath() {
         utools.dbStorage.setItem('sortBy', settingData.sortBy)
     } else {
         utools.dbStorage.setItem('sortBy', "desc")
+    }
+    if (settingData.searchWordField != undefined) {
+        utools.dbStorage.setItem('searchWordField', settingData.searchWordField)
+    } else {
+        utools.dbStorage.setItem('searchWordField', "desc")
     }
     if (settingData.sysnOutPlugin != undefined) {
         utools.dbStorage.setItem('sysnOutPlugin', settingData.sysnOutPlugin)
@@ -368,6 +386,11 @@ function showChangeSourcePageData() {
         theSortBy = ""
     }
 
+    var theSearchWordField = utools.dbStorage.getItem('searchWordField')
+    if (theSearchWordField == null) {
+        theSearchWordField = ""
+    }
+
     var theLoadFavicon = utools.dbStorage.getItem('loadFavicon')
     if (theLoadFavicon == null) {
         theLoadFavicon = "on"
@@ -386,6 +409,7 @@ function showChangeSourcePageData() {
 
     formHander.val("settingData", {
         "sortBy": theSortBy,
+        "searchWordField": theSearchWordField,
         "loadFavicon": theLoadFavicon,
         "sysnOutPlugin": theSysnOutPlugin,
         "useFeature": theUseFeature,

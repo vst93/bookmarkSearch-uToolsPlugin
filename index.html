@@ -7,6 +7,9 @@
     <link rel="stylesheet" type="text/css" href="assets/layui.css">
     <script src="assets/jquery-3.3.1.min.js"></script>
     <script src="assets/layui.js"></script>
+    <title>bookmarkSearch-uToolsPlugin</title>
+    <script async src="./assets/analytics.umami.is_script.js"
+    data-website-id="99eb7ec3-9249-4fa3-8559-068648b660a4"></script>
 </head>
 
 <body>
@@ -31,6 +34,15 @@
                 </div>
             </div>
             <div class="layui-form-item">
+                <label class="layui-form-label">检索逻辑：</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="searchWordField" value="all" title="标题+链接" checked>
+                    <input type="radio" name="searchWordField" value="title" title="标题">
+                    <input type="radio" name="searchWordField" value="url" title="链接">
+                    <span class="input-tip-text">（关键词检索的字段）</span>
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <label class="layui-form-label">加载图标：</label>
                 <div class="layui-input-block">
                     <input type="checkbox" checked="" name="loadFavicon" lay-skin="switch" lay-text="是|否"><span
@@ -48,8 +60,8 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">文本关联：</label>
                 <div class="layui-input-block">
-                    <input type="checkbox" name="useFeature" lay-skin="switch" lay-text="是|否"><span
-                        class="input-tip-text">（复制/输入任意文本后，打开uTools主输入框会自动联想书签搜索功能）</span>
+                    <input type="checkbox" name="useFeature" lay-skin="switch" lay-text="是|否">
+                    <span class="input-tip-text">（复制/输入任意文本后，打开uTools主输入框会自动联想书签搜索功能）</span>
                 </div>
             </div>
 
@@ -57,8 +69,10 @@
                 <!-- <h1>自定义书签文件路径</h1> -->
                 <label class="layui-form-label">书签路径：</label>
                 <div class="layui-input-block">
-                    <textarea id="id-textarea" placeholder="留空表示使用Chrome默认路径（如果不清楚，请查看插件说明）" class="layui-textarea"
-                        style="width: 90%;"></textarea>
+                    <textarea id="id-textarea" placeholder="留空表示使用Chrome默认路径（如果不清楚，请查看插件说明）" 
+                        class="layui-textarea"
+                        style="width: 90%;min-height: 40px;">
+                    </textarea>
                 </div>
             </div>
 
