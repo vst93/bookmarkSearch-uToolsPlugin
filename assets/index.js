@@ -494,15 +494,21 @@ function getDefaultBookmarkFilePath(browserName){
     } else if (utools.isWindows()) {
         switch (browserName) {
             case 'edge':
-                ret = basePath + `\\Local\\Microsoft\\Edge\\User Data\\Default\\Bookmarks`
+                ret = basePath + '/../Local/Microsoft/Edge/User Data/Default/Bookmarks';
                 break;
             case 'chrome':
-                ret = basePath + `\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Bookmarks`
+                ret = basePath + '/../Local/Google/Chrome/User Data/Default/Bookmarks';
                 break;
         }
     } else if (utools.isLinux()) {
-        alert('暂不支持');
-        return;
+        switch (browserName) {
+            case 'edge':
+                ret = '~/.config/microsoft-edge/Default/Bookmarks'
+                break;
+            case 'chrome':
+                ret = `~/.config/google-chrome/Default/Bookmarks`
+                break;
+        }
     }
 
     if(ret != ''){
