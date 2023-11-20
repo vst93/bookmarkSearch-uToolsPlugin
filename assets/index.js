@@ -478,3 +478,34 @@ function openUrl(url) {
         utools.outPlugin()
     }
 }
+
+function getDefaultBookmarkFilePath(browserName){
+    var basePath = utools.getPath('appData')
+    var ret = ''
+    if (utools.isMacOS()) {
+        switch (browserName) {
+            case 'edge':
+                ret = basePath + '/Microsoft Edge/Default/Bookmarks'
+                break;
+            case 'chrome':
+                ret = basePath + '/Google/Chrome/Default/Bookmarks'
+                break;
+        }
+    } else if (utools.isWindows()) {
+        switch (browserName) {
+            case 'edge':
+                ret = basePath + `\\Local\\Microsoft\\Edge\\User Data\\Default\\Bookmarks`
+                break;
+            case 'chrome':
+                ret = basePath + `\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Bookmarks`
+                break;
+        }
+    } else if (utools.isLinux()) {
+        alert('暂不支持');
+        return;
+    }
+
+    if(ret != ''){
+        $('#id-textarea').val(ret)
+    }
+}
