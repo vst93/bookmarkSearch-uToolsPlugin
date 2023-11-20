@@ -72,10 +72,10 @@ cheackBookmarkPath = (in_path, callback) => {
 }
 
 
-getFilePath = ()=>{
+getFilePath = () => {
     var reg = new RegExp("^file\:\/\/", "mi");
     filePath = clipboard.read('public.file-url')
-    filePath = filePath.replace(reg,'');
+    filePath = filePath.replace(reg, '');
     return decodeURI(filePath)
 }
 

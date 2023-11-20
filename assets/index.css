@@ -162,3 +162,8 @@ body{
     top: 4px;
     color: #838383;
 }
+
+.quick-selection-btn{
+    cursor: pointer;
+    
+}
